@@ -30,8 +30,8 @@ class RTDETRDataset(YOLODataset):
     def build_transforms(self, hyp=None):
         """Temporary, only for evaluation."""
         if self.augment:
-            hyp.mosaic = hyp.mosaic if self.augment and not self.rect else 0.0
-            hyp.mixup = hyp.mixup if self.augment and not self.rect else 0.0
+            hyp.mosaic = 0.0 if self.rect and not self.all_imgs_same_sz else hyp.mosaic
+            hyp.mixup = 0.0 if self.rect and not self.all_imgs_same_sz else hyp.mixup
             transforms = v8_transforms(self, self.imgsz, hyp, stretch=True)
         else:
             # transforms = Compose([LetterBox(new_shape=(self.imgsz, self.imgsz), auto=False, scaleFill=True)])

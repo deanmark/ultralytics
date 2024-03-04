@@ -74,6 +74,7 @@ class BaseDataset(Dataset):
         self.labels = self.get_labels()
         self.update_labels(include_class=classes)  # single_cls and include_class
         self.ni = len(self.labels)  # number of images
+        self.all_imgs_same_sz = len(set([lb['shape'] for lb in self.labels])) == 1
         self.rect = rect
         self.batch_size = batch_size
         self.stride = stride
